@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <img :src="product_data?.image" alt="product" class="image" />
+    <img :src="product_data?.images[0]" alt="product" class="image" />
     <div class="headline">
       <div class="info">
         <p class="title">{{ sliced }}</p>
@@ -47,10 +47,14 @@ export default {
 .wrapper {
   display: flex;
   flex-direction: column;
-  width: 280px;
   font-family: sans-serif;
   align-items: center;
   transition: 0.5s;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-height: 770px;
+  overflow: hidden;
 }
 
 .wrapper:hover {
@@ -58,9 +62,11 @@ export default {
 }
 
 .image {
-  height: 355px !important;
-  width: 250px !important;
+  max-height: 680px;
   padding-top: 20px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .icon {

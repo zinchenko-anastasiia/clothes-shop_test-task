@@ -2,17 +2,16 @@
 import ProductItem from "../components/ProductItem.vue";
 import { mapState } from "pinia";
 import { useProductStore } from "../store/index";
-import TwoPerPage from "./icons/2-perPage.svg";
-import FourPerPage from "./icons/4-perPage.svg";
+import { vAutoAnimate } from "@formkit/auto-animate";
 export default {
   data() {
     return {
       activeFilter: "",
       filtered: [],
-      perPage: 4,
-      TwoPerPage,
-      FourPerPage,
     };
+  },
+  props: {
+    perPage: Number,
   },
   created() {
     let qp = new URLSearchParams(window.location.search);
@@ -35,14 +34,11 @@ export default {
     addFilter: function (filterBy: string, data: any) {
       this.activeFilter = filterBy;
       this.filtered = [...data].filter((d) => {
-        if (filterBy === "all") {
+        if (filterBy.toLocaleLowerCase() === "all") {
           return d;
         }
-        return d.category === filterBy;
+        return d.category.name === filterBy;
       });
-    },
-    addPerPage: function (perPage) {
-      this.perPage = perPage;
     },
     updateURL() {
       let qp = new URLSearchParams();
@@ -69,12 +65,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <a class="but" v-on:click="addPerPage(2)"><span class="fa"></span></a>
-    <a class="butt" v-on:click="addPerPage(4)"><span class="fa"></span></a>
-  </div>
   <div class="filter-wrapper">
-    <ul class="filter-list">
+    <ul class="filter-list" v-auto-animate>
       <li class="list-item" v-for="brand in category" :key="brand">
         <a class="list-link" v-on:click="addFilter(brand, products)">
           {{ brand }}
@@ -82,7 +74,7 @@ onMounted(() => {
       </li>
     </ul>
   </div>
-  <div class="catalog">
+  <div class="catalog" v-auto-animate>
     <ProductItem
       v-for="product in isFiltered"
       :key="product.id"
@@ -92,30 +84,17 @@ onMounted(() => {
 </template>
 
 <style>
-.but {
-  line-height: 25px;
-  cursor: pointer;
-}
-
-.butt {
-  line-height: 25px;
-  cursor: pointer;
-}
-.but::before {
-  content: url("./icons/2-perPage.svg");
-}
-.butt::before {
-  content: url("./icons/4-perPage.svg");
-}
 .catalog {
   display: grid;
-  grid-template-columns: repeat(v-bind(perPage), 270px);
+  grid-template-columns: repeat(v-bind(perPage), 1fr);
   gap: 20px;
   margin-top: 60px;
 }
+
 .filter-wrapper {
   margin: 60px 60px 0 60px;
 }
+
 .filter-list {
   list-style: none;
   display: flex;

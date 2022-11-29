@@ -10,15 +10,17 @@ export const useProductStore = defineStore("products", {
   actions: {
     async fetchProducts() {
       try {
-        const data = await axios.get("https://fakestoreapi.com/products");
+        const data = await axios.get(
+          "https://api.escuelajs.co/api/v1/products"
+        );
         this.products = data.data;
+        console.log(data.data);
 
         const unique = data.data
-          .map((value) => value.category)
+          .map((value) => value.category.name)
           .filter((v, i, a) => a.indexOf(v) === i);
 
-        this.category = [...unique, "all"].sort();
-        console.log(data.data);
+        this.category = [...unique, "All"].sort();
       } catch (error) {
         console.log(error);
       }
