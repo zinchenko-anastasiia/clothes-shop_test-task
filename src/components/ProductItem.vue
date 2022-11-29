@@ -1,14 +1,10 @@
 <template>
   <div class="wrapper">
-    <img
-      :src="'https://' + product_data?.imageUrl"
-      alt="product"
-      class="image"
-    />
+    <img :src="product_data?.image" alt="product" class="image" />
     <div class="headline">
       <div class="info">
-        <p>{{ product_data?.name }}</p>
-        <p>{{ product_data?.price.current.text }}</p>
+        <p class="title">{{ sliced }}</p>
+        <p>{{ product_data?.price }}$</p>
       </div>
       <img :src="FavoriteIcon" alt="fav" class="icon" />
     </div>
@@ -33,6 +29,16 @@ export default {
       FavoriteIcon,
       FavoriteIconHover,
     };
+  },
+  computed: {
+    sliced() {
+      let res = this.product_data?.title.slice(0, 25);
+      if (res.length < this.product_data?.title.length) {
+        res += "...";
+      }
+
+      return res;
+    },
   },
 };
 </script>
