@@ -13,9 +13,10 @@ This project is a piece of an online store, namely a catalog. You can filter pro
 + HTML/CSS
 
 ### Setup
-
+```
 # yarn
 yarn install
 
 # npm
 npm install
+```
