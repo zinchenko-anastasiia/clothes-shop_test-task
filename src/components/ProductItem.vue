@@ -4,7 +4,7 @@
     <div class="headline">
       <div class="info">
         <p class="title">{{ sliced }}</p>
-        <p>{{ product_data?.price }}$</p>
+        <p>{{ product_data?.price }} $</p>
       </div>
       <img :src="FavoriteIcon" alt="fav" class="icon" />
     </div>
@@ -92,5 +92,9 @@ export default {
   gap: 5px;
   display: flex;
   flex-direction: column;
+}
+
+.title {
+  font-size: 18px;
 }
 </style>

@@ -8,11 +8,17 @@ export default {
   data() {
     return {
       perPage: 4,
+      isTwo: false,
     };
   },
   methods: {
-    addPerPage: function (perPage: number) {
-      this.perPage = perPage;
+    addPerPage: function (newPerPage: number) {
+      this.perPage = newPerPage;
+      if (newPerPage === 2) {
+        this.isTwo = true;
+      } else {
+        this.isTwo = false;
+      }
     },
   },
 };
@@ -21,8 +27,17 @@ export default {
 <template>
   <HeaderItem />
   <div class="per-page-changer">
-    <a class="but" v-on:click="addPerPage(2)"><span class="fa"></span></a>
-    <a class="butt" v-on:click="addPerPage(4)"><span class="fa"></span></a>
+    <span
+      v-bind:class="{ perPageTwo: isTwo, perPageTwoDis: !isTwo }"
+      v-on:click="addPerPage(2)"
+    ></span>
+    <span
+      v-bind:class="{
+        perPageFourDis: isTwo,
+        perPageFour: !isTwo,
+      }"
+      v-on:click="addPerPage(4)"
+    ></span>
   </div>
   <main class="main">
     <ProductsCatalog :perPage="perPage" />
@@ -31,11 +46,6 @@ export default {
 </template>
 
 <style>
-.but {
-  line-height: 25px;
-  cursor: pointer;
-}
-
 .per-page-changer {
   display: flex;
   flex-direction: row;
@@ -44,19 +54,30 @@ export default {
   margin-right: 62px;
 }
 
-.butt {
-  line-height: 25px;
+.perPageFour,
+.perPageFourDis,
+.perPageTwo,
+.perPageTwoDis {
   cursor: pointer;
+  height: 20px;
 }
-.but::before {
+.perPageTwo::before {
   content: url("../components/icons/2-perPage.svg");
 }
-.butt::before {
+.perPageTwoDis::before {
+  content: url("../components/icons/2-perPage-dis.svg");
+}
+.perPageFour::before {
+  content: url("../components/icons/4-perPage-dis.svg");
+}
+.perPageFourDis {
   content: url("../components/icons/4-perPage.svg");
 }
 .main {
   display: flex;
   max-width: 1400px;
   margin: 0 auto;
+  margin-bottom: 50px;
+  min-height: calc(100vh - 144px);
 }
 </style>

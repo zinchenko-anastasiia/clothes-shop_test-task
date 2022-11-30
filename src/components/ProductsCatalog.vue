@@ -68,7 +68,11 @@ onMounted(() => {
   <div class="filter-wrapper">
     <ul class="filter-list" v-auto-animate>
       <li class="list-item" v-for="brand in category" :key="brand">
-        <a class="list-link" v-on:click="addFilter(brand, products)">
+        <a
+          class="list-link"
+          v-bind:class="{ listLinkActive: activeFilter === brand }"
+          v-on:click="addFilter(brand, products)"
+        >
           {{ brand }}
         </a>
       </li>
@@ -111,6 +115,10 @@ onMounted(() => {
 
 .list-item:first-child {
   padding-top: 0;
+}
+
+.listLinkActive {
+  font-weight: 600;
 }
 
 .filter-navigation {
