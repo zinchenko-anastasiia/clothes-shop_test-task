@@ -1,7 +1,7 @@
 <template>
   <header class="header">
-    <a href="#home" class="logo">
-      <img class="logoImage" :src="logoIcon" alt="icon" />
+    <a href="#home" class="header__logo">
+      <img class="header__logo-image" :src="logoIcon" alt="icon" />
     </a>
   </header>
 </template>
@@ -27,7 +27,7 @@ export default {
   height: 144px;
 }
 
-.logo {
+.header__logo {
   padding-left: 63px;
   padding-top: 60px;
 }

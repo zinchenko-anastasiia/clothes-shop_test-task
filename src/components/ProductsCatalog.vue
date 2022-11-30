@@ -3,25 +3,28 @@ import ProductItem from "../components/ProductItem.vue";
 import { mapState } from "pinia";
 import { useProductStore } from "../store/index";
 import { vAutoAnimate } from "@formkit/auto-animate";
+import type * as type from "../type/types";
+
 export default {
+  name: "ProductsCatalog",
   data() {
     return {
-      activeFilter: "",
-      filtered: [],
+      activeFilter: "All" as type.FilterBy,
+      filtered: [] as type.Product[],
     };
   },
   props: {
     perPage: Number,
   },
   created() {
-    let qp = new URLSearchParams(window.location.search);
-    let f = qp.get("activeFilter");
-    if (f) {
-      this.activeFilter = qp.get("filter");
+    let newUrl = new URLSearchParams(window.location.search);
+    let urlPart = newUrl.get("activeFilter");
+    if (urlPart) {
+      this.activeFilter = newUrl.get("filter");
     }
   },
   computed: {
-    isFiltered() {
+    filteredProducts() {
       this.updateURL();
       if (this.filtered.length) {
         return this.filtered;
@@ -31,7 +34,7 @@ export default {
     ...mapState(useProductStore, ["products"]),
   },
   methods: {
-    addFilter: function (filterBy: string, data: any) {
+    addFilter: function (filterBy: type.FilterBy, data: type.Product[]) {
       this.activeFilter = filterBy;
       this.filtered = [...data].filter((d) => {
         if (filterBy.toLocaleLowerCase() === "all") {
@@ -41,11 +44,12 @@ export default {
       });
     },
     updateURL() {
-      let qp = new URLSearchParams();
-      if (this.activeFilter !== "") {
-        qp.set("filter", this.activeFilter);
+      let newUrl = new URLSearchParams();
+      if (this.activeFilter && this.perPage) {
+        newUrl.set("filter", this.activeFilter);
+        newUrl.set("grid", this.perPage.toString());
       }
-      history.replaceState(null, null, "?" + qp.toString());
+      history.replaceState(null, null, "?" + newUrl.toString());
     },
   },
 };
@@ -80,7 +84,7 @@ onMounted(() => {
   </div>
   <div class="catalog" v-auto-animate>
     <ProductItem
-      v-for="product in isFiltered"
+      v-for="product in filteredProducts"
       :key="product.id"
       :product_data="product"
     />

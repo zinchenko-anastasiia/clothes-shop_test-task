@@ -1,12 +1,16 @@
 <template>
-  <div class="wrapper">
-    <img :src="product_data?.images[0]" alt="product" class="image" />
-    <div class="headline">
-      <div class="info">
-        <p class="title">{{ sliced }}</p>
+  <div class="product-item-wrapper">
+    <img
+      :src="product_data?.images[0]"
+      alt="product"
+      class="product-item__image"
+    />
+    <div class="product-item__headline">
+      <div class="headline__info">
+        <p class="headline__title">{{ sliced }}</p>
         <p>{{ product_data?.price }} $</p>
       </div>
-      <img :src="FavoriteIcon" alt="fav" class="icon" />
+      <img :src="FavoriteIcon" alt="fav" class="headline__icon" />
     </div>
   </div>
 </template>
@@ -44,7 +48,7 @@ export default {
 </script>
 
 <style>
-.wrapper {
+.product-item-wrapper {
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
@@ -57,11 +61,11 @@ export default {
   overflow: hidden;
 }
 
-.wrapper:hover {
+.product-item-wrapper:hover {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.image {
+.product-item__image {
   max-height: 680px;
   padding-top: 20px;
   width: 100%;
@@ -69,17 +73,17 @@ export default {
   object-position: center;
 }
 
-.icon {
+.headline__icon {
   height: 18px;
   width: 20px;
   transition: transform 300ms linear, color 300ms linear;
 }
 
-.icon:hover {
+.headline__icon:hover {
   transform: scale(1.2);
 }
 
-.headline {
+.product-item__headline {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -88,13 +92,13 @@ export default {
   width: 100%;
   box-sizing: border-box;
 }
-.info {
+.headline__info {
   gap: 5px;
   display: flex;
   flex-direction: column;
 }
 
-.title {
+.headline__title {
   font-size: 18px;
 }
 </style>

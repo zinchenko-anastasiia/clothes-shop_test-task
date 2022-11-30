@@ -26,7 +26,7 @@ export default {
 
 <template>
   <HeaderItem />
-  <div class="per-page-changer">
+  <div class="perpage-changer">
     <span
       v-bind:class="{ perPageTwo: isTwo, perPageTwoDis: !isTwo }"
       v-on:click="addPerPage(2)"
@@ -46,7 +46,7 @@ export default {
 </template>
 
 <style>
-.per-page-changer {
+.perpage-changer {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

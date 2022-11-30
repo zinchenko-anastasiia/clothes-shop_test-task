@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
-    <a href="#home" class="logo">
-      <img class="logoImage" :src="logoIcon" alt="icon" />
+    <a href="#home" class="footer__logo">
+      <img class="footer__logo-image" :src="logoIcon" alt="icon" />
     </a>
   </footer>
 </template>
@@ -28,7 +28,7 @@ export default {
   background-color: black;
 }
 
-.logo {
+.footer__log {
   padding-left: 63px;
   padding-top: 43px;
 }

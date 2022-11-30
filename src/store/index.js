@@ -14,7 +14,6 @@ export const useProductStore = defineStore("products", {
           "https://api.escuelajs.co/api/v1/products"
         );
         this.products = data.data;
-        console.log(data.data);
 
         const unique = data.data
           .map((value) => value.category.name)
